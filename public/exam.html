@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCNA Exam & Practice</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #6366f1;
+    --accent: #ec4899;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #06b6d4;
+    --bg: #0a0a0f;
+    --bg-2: #12121a;
+    --card: #16161f;
+    --border: #26263a;
+    --text: #e4e4f0;
+    --text-light: #8b8ba7;
+    --text-muted: #5a5a75;
+  }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(99,102,241,0.08), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(236,72,153,0.06), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  /* Header */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .brand-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.4);
+  }
+  .btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: 0.2s;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .btn:hover { background: var(--bg-2); border-color: var(--primary); transform: translateY(-2px); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    color: white;
+    padding: 0.8rem 1.8rem;
+  }
+  .btn-primary:hover { box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
+  .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); border: none; color: white; }
+  .btn-success { background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(236,72,153,0.1));
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  .hero p { color: var(--text-light); margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .mode-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  .mode-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(99,102,241,0.2);
+  }
+  .mode-card .icon { font-size: 2.5rem; margin-bottom: 0.7rem; }
+  .mode-card .title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .mode-card .desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+
+  /* Exam header */
+  .exam-header {
+    position: sticky;
+    top: 10px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .timer {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(236,72,153,0.15));
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(99,102,241,0.3);
+  }
+  .timer.warning { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1)); border-color: rgba(245,158,11,0.4); }
+  .timer.danger { background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(239,68,68,0.15)); border-color: rgba(239,68,68,0.5); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+  .timer-text { font-family: 'Consolas', monospace; font-size: 1.3rem; font-weight: 700; color: #a5b4fc; }
+  .timer.warning .timer-text { color: #fbbf24; }
+  .timer.danger .timer-text { color: #fca5a5; }
+  .progress-info { font-size: 0.85rem; color: var(--text-light); }
+  .progress-info strong { color: var(--text); font-size: 1rem; }
+
+  /* Nav grid */
+  .nav-grid {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .nav-grid-title {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+  }
+  .nav-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+    gap: 0.4rem;
+  }
+  .nav-q {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.15s;
+    color: var(--text-light);
+    font-family: inherit;
+    position: relative;
+  }
+  .nav-q:hover { transform: scale(1.1); border-color: var(--primary); }
+  .nav-q.answered { background: rgba(99,102,241,0.2); color: #a5b4fc; border-color: var(--primary); }
+  .nav-q.current { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-color: transparent; box-shadow: 0 0 0 3px rgba(99,102,241,0.3); }
+  .nav-q.flagged::after {
+    content: '🚩';
+    position: absolute;
+    top: -6px; right: -6px;
+    font-size: 0.7rem;
+  }
+  .nav-q.correct { background: rgba(16,185,129,0.2); color: #6ee7b7; border-color: var(--success); }
+  .nav-q.wrong { background: rgba(239,68,68,0.2); color: #fca5a5; border-color: var(--danger); }
+
+  /* Question card */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    animation: slideUp 0.3s;
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .q-badge {
+    background: rgba(99,102,241,0.15);
+    color: #a5b4fc;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .flag-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: inherit;
+    transition: 0.2s;
+  }
+  .flag-btn:hover { border-color: var(--warning); color: var(--warning); }
+  .flag-btn.active { background: rgba(245,158,11,0.15); border-color: var(--warning); color: #fbbf24; }
+
+  .q-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .q-text code {
+    background: rgba(99,102,241,0.15);
+    color: #a5b4fc;
+    padding: 0.15rem 0.5rem;
+    border-radius: 5px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.95em;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 0.6rem; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg-2);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: left;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-family: inherit;
+  }
+  .option:hover:not(:disabled) { border-color: var(--primary); background: rgba(99,102,241,0.05); transform: translateX(4px); }
+  .option.selected { border-color: var(--primary); background: rgba(99,102,241,0.12); }
+  .option.selected .opt-letter { background: var(--primary); color: white; border-color: var(--primary); }
+  .option.correct { border-color: var(--success); background: rgba(16,185,129,0.1); }
+  .option.correct .opt-letter { background: var(--success); color: white; border-color: var(--success); }
+  .option.wrong { border-color: var(--danger); background: rgba(239,68,68,0.1); }
+  .option.wrong .opt-letter { background: var(--danger); color: white; border-color: var(--danger); }
+  .option:disabled { cursor: not-allowed; }
+  .opt-letter {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: 0.2s;
+  }
+
+  /* Explanation */
+  .explanation { margin-top: 1.5rem; animation: slideUp 0.4s; }
+  .exp-banner {
+    padding: 1rem 1.2rem;
+    border-radius: 12px 12px 0 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .exp-banner.correct { background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); border-bottom: none; }
+  .exp-banner.wrong { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); border-bottom: none; }
+  .exp-content {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 0 0 12px 12px;
+    padding: 1.2rem;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-light);
+  }
+  .exp-content strong { color: #a5b4fc; }
+
+  /* Actions */
+  .actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; flex-wrap: wrap; align-items: center; }
+  .actions .spacer { flex: 1; }
+
+  /* Result */
+  .result-hero {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .result-hero.pass { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05)); border-color: rgba(16,185,129,0.4); }
+  .result-hero.fail { background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05)); border-color: rgba(239,68,68,0.4); }
+  .result-emoji { font-size: 4rem; margin-bottom: 1rem; display: block; }
+  .result-title { font-size: 2rem; margin-bottom: 0.5rem; }
+  .result-hero.pass .result-title { color: #6ee7b7; }
+  .result-hero.fail .result-title { color: #fca5a5; }
+
+  .score-circle {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem auto;
+    position: relative;
+  }
+  .score-circle::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    background: var(--bg-2);
+    border-radius: 50%;
+  }
+  .score-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .score-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .result-stat {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .result-stat .num { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .result-stat .num.green { color: #6ee7b7; }
+  .result-stat .num.red { color: #fca5a5; }
+  .result-stat .num.yellow { color: #fbbf24; }
+  .result-stat .label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+
+  /* Review list */
+  .review-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .review-item.correct { border-left: 4px solid var(--success); }
+  .review-item.wrong { border-left: 4px solid var(--danger); }
+  .review-item.skipped { border-left: 4px solid var(--warning); }
+  .review-q-text { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
+  .review-answers {
+    background: var(--bg-2);
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+  .review-row { display: flex; gap: 0.8rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+  .review-row:last-child { margin-bottom: 0; }
+  .review-label { color: var(--text-muted); font-weight: 600; min-width: 130px; }
+  .review-value { flex: 1; }
+  .review-value.correct { color: #6ee7b7; font-weight: 600; }
+  .review-value.wrong { color: #fca5a5; text-decoration: line-through; }
+  .review-value.skipped { color: #fbbf24; font-style: italic; }
+  .review-exp {
+    background: rgba(99,102,241,0.08);
+    border-left: 3px solid var(--primary);
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    margin-top: 0.8rem;
+    font-size: 0.87rem;
+    line-height: 1.7;
+    color: var(--text-light);
+  }
+  .review-exp strong { color: #a5b4fc; }
+
+  /* Empty / Loading */
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 16px;
+    color: var(--text-light);
+  }
+  .empty-state .icon { font-size: 4rem; margin-bottom: 1rem; }
+  .empty-state h3 { color: var(--text); margin-bottom: 0.5rem; }
+
+  .loading-box {
+    text-align: center;
+    padding: 3rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Stats bar (for practice mode) */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.8rem;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .stat .num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat .num.green { background: linear-gradient(135deg, #10b981, #6ee7b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat .num.red { background: linear-gradient(135deg, #ef4444, #fca5a5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat .label {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* Controls (practice) */
+  .controls {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: flex-end;
+  }
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 130px;
+  }
+  .control-group label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+  .control-group select {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+  }
+  .btn-generate {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
+
+  @media (max-width: 700px) {
+    body { padding: 1rem 0.7rem; }
+    .hero { padding: 1.5rem; }
+    .hero h1 { font-size: 1.4rem; }
+    .question-card { padding: 1.3rem; }
+    .q-text { font-size: 1rem; }
+    .timer-text { font-size: 1rem; }
+    .stats-bar { grid-template-columns: repeat(3, 1fr); }
+    .review-label { min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- TOP NAV -->
+  <div class="top-nav">
+    <div class="brand">
+      <div class="brand-icon" id="brandIcon">🎯</div>
+      <div>
+        <span id="brandTitle">CCNA Exam & Practice</span>
+        <div style="font-size:0.65rem;color:var(--text-muted);font-weight:400;" id="brandSub">Kiểm tra kiến thức</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button class="btn" onclick="goHome()" id="homeBtn" style="display:none;">🏠 Trang chính</button>
+      <a href="/" class="btn">← Về Dashboard</a>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content"></div>
+
+</div>
+
+<script>
+// ============================================================
+// CONFIG & STATE
+// ============================================================
+const EXAM_CONFIG = {
+  totalQuestions: 50,
+  durationMinutes: 60,
+  passScore: 80
+};
+
+const STORAGE_KEYS = {
+  HISTORY: 'ccna_exam_history',
+  WRONG: 'ccna_wrong',
+  STATS: 'ccna_stats'
+};
+
+let state = {
+  mode: 'home', // home | practice | exam | review
+  phase: 'idle',
+  questions: [],
+  answers: {},
+  flagged: new Set(),
+  currentIndex: 0,
+  startTime: null,
+  timerInterval: null,
+  timeLeft: 0,
+  result: null,
+  // practice stats
+  practiceStats: { total: 0, correct: 0, wrong: 0, streak: 0 }
+};
+
+// ============================================================
+// INIT — Đọc query param để biết chế độ nào
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get('mode') || 'home';
+
+  switch (mode) {
+    case 'practice': startPractice(); break;
+    case 'exam': renderExamStart(); break;
+    case 'review': renderReviewMode(); break;
+    default: renderHome();
+  }
+});
+
+// ============================================================
+// HOME SCREEN
+// ============================================================
+function renderHome() {
+  state.mode = 'home';
+  document.getElementById('brandIcon').textContent = '🎯';
+  document.getElementById('brandTitle').textContent = 'CCNA Exam & Practice';
+  document.getElementById('brandSub').textContent = 'Chọn chế độ';
+  document.getElementById('homeBtn').style.display = 'none';
+
+  const wrongCount = getWrongList().length;
+  const history = getExamHistory();
+
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <h1>🎯 Chọn chế độ học</h1>
+      <p>Chọn 1 trong 3 chế độ bên dưới để bắt đầu</p>
+    </div>
+
+    <div class="mode-grid">
+      <div class="mode-card" onclick="startPractice()">
+        <div class="icon">🎲</div>
+        <div class="title">Luyện tập</div>
+        <div class="desc">Sinh câu hỏi vô hạn, xem giải thích ngay sau mỗi câu</div>
+      </div>
+
+      <div class="mode-card" onclick="renderExamStart()">
+        <div class="icon">⏱️</div>
+        <div class="title">Thi thử 60 phút</div>
+        <div class="desc">${EXAM_CONFIG.totalQuestions} câu, ${EXAM_CONFIG.durationMinutes} phút, chấm điểm tự động</div>
+      </div>
+
+      <div class="mode-card" onclick="renderReviewMode()">
+        <div class="icon">📝</div>
+        <div class="title">Xem lại câu sai ${wrongCount > 0 ? `<span style="background:#ef4444;color:white;font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:10px;margin-left:0.3rem;">${wrongCount}</span>` : ''}</div>
+        <div class="desc">Ôn lại ${wrongCount} câu đã sai</div>
+      </div>
+    </div>
+
+    ${history.length > 0 ? `
+      <h2 style="font-size:1.2rem;margin:2rem 0 1rem;">📊 Lịch sử thi gần đây</h2>
+      ${history.slice(0, 5).map(h => `
+        <div class="review-item ${h.passed ? 'correct' : 'wrong'}" style="padding:1rem 1.2rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <div>
+              <strong style="font-size:1.1rem;color:${h.passed ? '#6ee7b7' : '#fca5a5'};">${h.score}%</strong>
+              <span style="color:var(--text-light);margin-left:1rem;font-size:0.85rem;">
+                ${h.correct}/${h.total} đúng
+              </span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">${formatDate(h.date)}</div>
+          </div>
+        </div>
+      `).join('')}
+    ` : ''}
+  `;
+}
+
+function goHome() {
+  stopTimer();
+  renderHome();
+}
+
+// ============================================================
+// MODE 1: PRACTICE
+// ============================================================
+function startPractice() {
+  state.mode = 'practice';
+  document.getElementById('brandIcon').textContent = '🎲';
+  document.getElementById('brandTitle').textContent = 'Luyện tập';
+  document.getElementById('brandSub').textContent = 'Sinh câu hỏi vô hạn';
+  document.getElementById('homeBtn').style.display = 'inline-flex';
+
+  // Load stats từ localStorage
+  state.practiceStats = JSON.parse(localStorage.getItem(STORAGE_KEYS.STATS)) || { total: 0, correct: 0, wrong: 0, streak: 0 };
+
+  document.getElementById('content').innerHTML = `
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="num" id="statTotal">0</div>
+        <div class="label">Đã làm</div>
+      </div>
+      <div class="stat">
+        <div class="num green" id="statCorrect">0</div>
+        <div class="label">Đúng</div>
+      </div>
+      <div class="stat">
+        <div class="num red" id="statWrong">0</div>
+        <div class="label">Sai</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="statStreak">0</div>
+        <div class="label">Streak 🔥</div>
+      </div>
+      <div class="stat">
+        <div class="num" id="statAccuracy">—</div>
+        <div class="label">Chính xác</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label>📚 Chủ đề</label>
+        <select id="topicSelect">
+          <option value="random">🎲 Ngẫu nhiên</option>
+          <option value="OSI Model">📡 OSI Model</option>
+          <option value="Subnetting">🔢 Subnetting</option>
+          <option value="VLAN">🔀 VLAN</option>
+          <option value="Routing">🛣️ Routing</option>
+          <option value="ACL">🛡️ ACL</option>
+          <option value="NAT">🔄 NAT/PAT</option>
+          <option value="Ports & Protocols">🔌 Port Numbers</option>
+          <option value="Security">🔐 Security</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>⚡ Độ khó</label>
+        <select id="difficultySelect">
+          <option value="random">🎲 Ngẫu nhiên</option>
+          <option value="easy">🟢 Dễ</option>
+          <option value="medium">🟡 Trung bình</option>
+          <option value="hard">🔴 Khó</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>🎯 Nguồn</label>
+        <select id="sourceSelect">
+          <option value="auto">🔄 Hybrid</option>
+          <option value="static">📚 Tĩnh</option>
+          <option value="generated">🎲 Template</option>
+        </select>
+      </div>
+      <button class="btn-generate" onclick="loadPracticeQuestion()">✨ Sinh câu hỏi</button>
+    </div>
+
+    <div id="questionArea">
+      <div class="empty-state">
+        <div class="icon">🎯</div>
+        <h3>Bấm "Sinh câu hỏi" để bắt đầu</h3>
+        <p style="margin-top:0.5rem;font-size:0.9rem;">Mỗi câu sẽ có giải thích chi tiết</p>
+      </div>
+    </div>
+  `;
+
+  updatePracticeStatsUI();
+}
+
+async function loadPracticeQuestion() {
+  const category = document.getElementById('topicSelect').value;
+  const difficulty = document.getElementById('difficultySelect').value;
+  const source = document.getElementById('sourceSelect').value;
+
+  document.getElementById('questionArea').innerHTML = `
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p style="color:var(--text-light);">Đang sinh câu hỏi...</p>
+    </div>
+  `;
+
+  try {
+    const params = new URLSearchParams({ category, difficulty, source });
+    const res = await fetch(`/api/question?${params}`);
+    const data = await res.json();
+
+    if (!data.question) throw new Error('Không có câu hỏi');
+
+    state.questions = [data.question];
+    state.currentIndex = 0;
+    state.answers = {};
+    state.phase = 'practice-question';
+    renderPracticeQuestion(data.question);
+
+  } catch (err) {
+    document.getElementById('questionArea').innerHTML = `
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <h3>Lỗi kết nối</h3>
+        <p>${err.message}</p>
+      </div>
+    `;
+  }
+}
+
+function renderPracticeQuestion(q) {
+  document.getElementById('questionArea').innerHTML = `
+    <div class="question-card">
+      <div class="q-meta">
+        <div class="q-badge">${q.category} · ${q.difficulty}</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);">
+          ${q.source === 'ai' ? '✨ AI' : q.source === 'generated' ? '🎲 Template' : '📚 Static'}
+        </div>
+      </div>
+      <div class="q-text">${q.question}</div>
+      <div class="options" id="optionsBox">
+        ${q.options.map((opt, i) => `
+          <button class="option" onclick="selectPracticeAnswer(${i})" data-index="${i}">
+            <span class="opt-letter">${String.fromCharCode(65 + i)}</span>
+            <span>${opt}</span>
+          </button>
+        `).join('')}
+      </div>
+      <div id="explanationBox"></div>
+      <div class="actions" id="practiceActions" style="display:none;">
+        <button class="btn btn-primary" onclick="loadPracticeQuestion()">Câu tiếp theo →</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectPracticeAnswer(index) {
+  const q = state.questions[0];
+  const opts = document.querySelectorAll('.option');
+
+  opts.forEach((opt, i) => {
+    opt.disabled = true;
+    opt.style.cursor = 'not-allowed';
+    if (i === q.answer) {
+      opt.classList.add('correct');
+      opt.querySelector('.opt-letter').innerHTML = '✓';
+    } else if (i === index) {
+      opt.classList.add('wrong');
+      opt.querySelector('.opt-letter').innerHTML = '✗';
+    }
+  });
+
+  const isCorrect = index === q.answer;
+
+  // Update stats
+  state.practiceStats.total++;
+  if (isCorrect) {
+    state.practiceStats.correct++;
+    state.practiceStats.streak++;
+  } else {
+    state.practiceStats.wrong++;
+    state.practiceStats.streak = 0;
+    // Lưu câu sai
+    saveWrongQuestion(q, index);
+  }
+  localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(state.practiceStats));
+  updatePracticeStatsUI();
+
+  // Hiển thị giải thích
+  const box = document.getElementById('explanationBox');
+  box.innerHTML = `
+    <div class="explanation">
+      <div class="exp-banner ${isCorrect ? 'correct' : 'wrong'}">
+        ${isCorrect ? '✅ Chính xác!' : '❌ Chưa đúng'}
+      </div>
+      <div class="exp-content">
+        ${q.explanation || 'Đáp án đúng là: ' + String.fromCharCode(65 + q.answer)}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('practiceActions').style.display = 'flex';
+}
+
+function updatePracticeStatsUI() {
+  const s = state.practiceStats;
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set('statTotal', s.total);
+  set('statCorrect', s.correct);
+  set('statWrong', s.wrong);
+  set('statStreak', s.streak);
+  set('statAccuracy', s.total > 0 ? Math.round((s.correct / s.total) * 100) + '%' : '—');
+}
+
+// ============================================================
+// MODE 2: EXAM
+// ============================================================
+function renderExamStart() {
+  state.mode = 'exam';
+  stopTimer();
+  document.getElementById('brandIcon').textContent = '⏱️';
+  document.getElementById('brandTitle').textContent = 'Thi thử CCNA';
+  document.getElementById('brandSub').textContent = 'Mô phỏng kỳ thi thực tế';
+  document.getElementById('homeBtn').style.display = 'inline-flex';
+
+  const history = getExamHistory();
+  const lastExam = history[0];
+
+  document.getElementById('content').innerHTML = `
+    <div class="hero">
+      <h1>⏱️ Thi thử CCNA</h1>
+      <p>Bài thi mô phỏng CCNA 200-301. Không có đáp án trong lúc thi, xem lại sau khi nộp.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:2rem 0;">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">📝</div>
+          <div style="font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${EXAM_CONFIG.totalQuestions}</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Câu hỏi</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">⏰</div>
+          <div style="font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${EXAM_CONFIG.durationMinutes}p</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Thời gian</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">🎯</div>
+          <div style="font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${EXAM_CONFIG.passScore}%</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Điểm đậu</div>
+        </div>
+        ${lastExam ? `
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">🏆</div>
+          <div style="font-size:1.3rem;font-weight:700;color:${lastExam.passed ? '#6ee7b7' : '#fca5a5'};">${lastExam.score}%</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Lần trước</div>
+        </div>
+        ` : ''}
+      </div>
+
+      <button class="btn btn-primary" onclick="startExam()">🚀 Bắt đầu thi</button>
+    </div>
+  `;
+}
+
+async function startExam() {
+  document.getElementById('content').innerHTML = `
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p style="color:var(--text-light);">Đang tải câu hỏi...</p>
+    </div>
+  `;
+
+  try {
+    const res = await fetch(`/api/questions?count=${EXAM_CONFIG.totalQuestions}&category=random&difficulty=random`);
+    const data = await res.json();
+
+    if (!data.questions || data.questions.length === 0) throw new Error('Không có câu hỏi');
+
+    state.questions = data.questions;
+    state.answers = {};
+    state.flagged = new Set();
+    state.currentIndex = 0;
+    state.startTime = Date.now();
+    state.timeLeft = EXAM_CONFIG.durationMinutes * 60;
+    state.phase = 'exam';
+
+    startTimer();
+    renderExam();
+
+  } catch (err) {
+    document.getElementById('content').innerHTML = `
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <h3>Lỗi tải câu hỏi</h3>
+        <p>${err.message}</p>
+        <br>
+        <button class="btn" onclick="renderExamStart()">← Quay lại</button>
+      </div>
+    `;
+  }
+}
+
+function startTimer() {
+  stopTimer();
+  state.timerInterval = setInterval(() => {
+    state.timeLeft--;
+    updateTimerUI();
+    if (state.timeLeft <= 0) {
+      stopTimer();
+      autoSubmit();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const el = document.getElementById('timer');
+  if (!el) return;
+  const m = Math.floor(state.timeLeft / 60);
+  const s = state.timeLeft % 60;
+  const text = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.querySelector('.timer-text').textContent = text;
+
+  el.classList.remove('warning', 'danger');
+  if (state.timeLeft <= 60) el.classList.add('danger');
+  else if (state.timeLeft <= 300) el.classList.add('warning');
+}
+
+function stopTimer() {
+  if (state.timerInterval) {
+    clearInterval(state.timerInterval);
+    state.timerInterval = null;
+  }
+}
+
+function renderExam() {
+  const q = state.questions[state.currentIndex];
+  const answered = Object.keys(state.answers).length;
+
+  document.getElementById('content').innerHTML = `
+    <div class="exam-header">
+      <div class="timer" id="timer">
+        <span style="font-size:1.2rem;">⏰</span>
+        <span class="timer-text">--:--</span>
+      </div>
+      <div class="progress-info">
+        Đã trả lời <strong>${answered}</strong>/${state.questions.length}
+      </div>
+      <button class="btn btn-danger" onclick="confirmSubmit()">📤 Nộp bài</button>
+    </div>
+
+    <div class="nav-grid">
+      <div class="nav-grid-title">📋 Danh sách câu hỏi</div>
+      <div class="nav-items">
+        ${state.questions.map((_, i) => `
+          <button class="nav-q ${i === state.currentIndex ? 'current' : ''} ${state.answers[i] !== undefined ? 'answered' : ''} ${state.flagged.has(i) ? 'flagged' : ''}"
+                  onclick="goToQuestion(${i})">${i + 1}</button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-meta">
+        <div class="q-badge">Câu ${state.currentIndex + 1} / ${state.questions.length}</div>
+        <button class="flag-btn ${state.flagged.has(state.currentIndex) ? 'active' : ''}" onclick="toggleFlag()">
+          🚩 ${state.flagged.has(state.currentIndex) ? 'Bỏ đánh dấu' : 'Đánh dấu'}
+        </button>
+      </div>
+      <div class="q-text">${q.question}</div>
+      <div class="options">
+        ${q.options.map((opt, i) => `
+          <button class="option ${state.answers[state.currentIndex] === i ? 'selected' : ''}" onclick="selectExamOption(${i})">
+            <span class="opt-letter">${String.fromCharCode(65 + i)}</span>
+            <span>${opt}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" onclick="prevQuestion()" ${state.currentIndex === 0 ? 'disabled' : ''}>← Câu trước</button>
+      <div class="spacer"></div>
+      <button class="btn btn-primary" onclick="nextQuestion()" ${state.currentIndex >= state.questions.length - 1 ? 'disabled' : ''}>Câu sau →</button>
+    </div>
+  `;
+
+  updateTimerUI();
+}
+
+function goToQuestion(i) { state.currentIndex = i; renderExam(); }
+function nextQuestion() { if (state.currentIndex < state.questions.length - 1) { state.currentIndex++; renderExam(); } }
+function prevQuestion() { if (state.currentIndex > 0) { state.currentIndex--; renderExam(); } }
+function selectExamOption(i) { state.answers[state.currentIndex] = i; renderExam(); }
+function toggleFlag() {
+  if (state.flagged.has(state.currentIndex)) state.flagged.delete(state.currentIndex);
+  else state.flagged.add(state.currentIndex);
+  renderExam();
+}
+
+function confirmSubmit() {
+  const answered = Object.keys(state.answers).length;
+  const unanswered = state.questions.length - answered;
+  let msg = `Bạn đã trả lời ${answered}/${state.questions.length} câu.`;
+  if (unanswered > 0) msg += `\n\n⚠️ Còn ${unanswered} câu chưa trả lời!`;
+  msg += '\n\nXác nhận nộp bài?';
+  if (confirm(msg)) submitExam();
+}
+
+function autoSubmit() {
+  alert('⏰ Hết thời gian! Bài sẽ được nộp tự động.');
+  submitExam();
+}
+
+function submitExam() {
+  stopTimer();
+  const endTime = Date.now();
+
+  let correct = 0;
+  const details = state.questions.map((q, i) => {
+    const selected = state.answers[i];
+    const isCorrect = selected === q.answer;
+    if (isCorrect) correct++;
+    if (!isCorrect && selected !== undefined) saveWrongQuestion(q, selected);
+    return { question: q, selected, isCorrect, skipped: selected === undefined };
+  });
+
+  const total = state.questions.length;
+  const score = Math.round((correct / total) * 100);
+  const passed = score >= EXAM_CONFIG.passScore;
+  const duration = Math.floor((endTime - state.startTime) / 1000);
+
+  saveExamHistory({ score, correct, wrong: total - correct, total, duration, passed });
+
+  state.result = { score, correct, wrong: total - correct, total, passed, duration, details };
+  state.phase = 'result';
+  renderResult();
+}
+
+function renderResult() {
+  const r = state.result;
+  const m = Math.floor(r.duration / 60);
+  const s = r.duration % 60;
+
+  document.getElementById('content').innerHTML = `
+    <div class="result-hero ${r.passed ? 'pass' : 'fail'}">
+      <span class="result-emoji">${r.passed ? '🎉' : '😔'}</span>
+      <h1 class="result-title">${r.passed ? 'CHÚC MỪNG!' : 'CHƯA ĐẠT'}</h1>
+      <p style="color:var(--text-light);margin-bottom:1rem;">
+        ${r.passed ? 'Bạn đã vượt qua bài thi thử!' : `Cần đạt ${EXAM_CONFIG.passScore}% để pass.`}
+      </p>
+
+      <div class="score-circle" style="background:conic-gradient(${r.passed ? '#10b981' : '#ef4444'} ${r.score * 3.6}deg, var(--border) ${r.score * 3.6}deg);">
+        <div class="score-value">${r.score}%</div>
+        <div class="score-label">Điểm</div>
+      </div>
+
+      <div class="result-stats">
+        <div class="result-stat"><div class="num green">${r.correct}</div><div class="label">Đúng</div></div>
+        <div class="result-stat"><div class="num red">${r.wrong}</div><div class="label">Sai</div></div>
+        <div class="result-stat"><div class="num">${r.total}</div><div class="label">Tổng câu</div></div>
+        <div class="result-stat"><div class="num yellow">${m}p ${s}s</div><div class="label">Thời gian</div></div>
+      </div>
+
+      <div style="margin-top:1.5rem;display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startExam()">🔄 Thi lại</button>
+        <button class="btn" onclick="renderExamStart()">🏠 Về trang thi</button>
+      </div>
+    </div>
+
+    <h2 style="font-size:1.3rem;margin:2rem 0 1rem;">📝 Xem lại bài làm</h2>
+    ${r.details.map((d, i) => renderReviewItem(d, i)).join('')}
+  `;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// MODE 3: REVIEW WRONG QUESTIONS
+// ============================================================
+function renderReviewMode() {
+  state.mode = 'review';
+  document.getElementById('brandIcon').textContent = '📝';
+  document.getElementById('brandTitle').textContent = 'Xem lại câu sai';
+  document.getElementById('brandSub').textContent = 'Ôn lại kiến thức chưa nắm';
+  document.getElementById('homeBtn').style.display = 'inline-flex';
+
+  const wrongList = getWrongList();
+
+  if (wrongList.length === 0) {
+    document.getElementById('content').innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✨</div>
+        <h3>Chưa có câu sai nào!</h3>
+        <p style="margin-top:0.5rem;">Bạn chưa làm sai câu nào. Hãy luyện tập hoặc thi thử để tạo danh sách.</p>
+        <br>
+        <button class="btn btn-primary" onclick="startPractice()">🎲 Luyện tập ngay</button>
+      </div>
+    `;
+    return;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="hero" style="text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h1>📝 ${wrongList.length} câu sai cần ôn</h1>
+          <p style="margin:0.5rem 0 0 0;">Nhấn vào từng câu để xem lại chi tiết và đáp án đúng</p>
+        </div>
+        <button class="btn btn-danger" onclick="clearWrongList()">🗑️ Xóa tất cả</button>
+      </div>
+    </div>
+
+    ${wrongList.map((q, i) => renderWrongQuestionItem(q, i)).join('')}
+  `;
+}
+
+function renderWrongQuestionItem(q, i) {
+  const selectedText = q.options[q.selectedAnswer];
+  const correctText = q.options[q.answer];
+
+  return `
+    <div class="review-item wrong">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem;">
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span style="background:rgba(99,102,241,0.15);color:#a5b4fc;padding:0.25rem 0.7rem;border-radius:20px;font-size:0.7rem;font-weight:700;">${q.category}</span>
+          <span style="background:rgba(245,158,11,0.15);color:#fbbf24;padding:0.25rem 0.7rem;border-radius:20px;font-size:0.7rem;font-weight:700;text-transform:uppercase;">${q.difficulty}</span>
+        </div>
+        <div style="display:flex;gap:0.8rem;align-items:center;">
+          <span style="font-size:0.7rem;color:var(--text-muted);">
+            Sai ${q.reviewCount || 1} lần
+          </span>
+          <button class="btn" style="padding:0.3rem 0.7rem;font-size:0.75rem;" onclick="removeWrongQuestion(${q.id})">✓ Đã hiểu</button>
+        </div>
+      </div>
+
+      <div class="review-q-text">${q.question}</div>
+
+      <div class="review-answers">
+        <div class="review-row">
+          <span class="review-label">Bạn chọn:</span>
+          <span class="review-value wrong">${selectedText}</span>
+        </div>
+        <div class="review-row">
+          <span class="review-label">Đáp án đúng:</span>
+          <span class="review-value correct">${String.fromCharCode(65 + q.answer)}. ${correctText}</span>
+        </div>
+      </div>
+
+      ${q.explanation ? `
+        <div class="review-exp">
+          💡 <strong>Giải thích:</strong> ${q.explanation}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function removeWrongQuestion(id) {
+  const list = getWrongList().filter(q => q.id !== id);
+  localStorage.setItem(STORAGE_KEYS.WRONG, JSON.stringify(list));
+  renderReviewMode();
+}
+
+function clearWrongList() {
+  if (!confirm('Xóa tất cả câu sai? Hành động này không thể hoàn tác.')) return;
+  localStorage.removeItem(STORAGE_KEYS.WRONG);
+  renderReviewMode();
+}
+
+// ============================================================
+// SHARED HELPERS
+// ============================================================
+function renderReviewItem(d, i) {
+  const q = d.question;
+  const cls = d.skipped ? 'skipped' : (d.isCorrect ? 'correct' : 'wrong');
+  const statusText = d.skipped ? '⚠️ Bỏ trống' : (d.isCorrect ? '✅ Đúng' : '❌ Sai');
+  const selectedText = d.selected !== undefined ? q.options[d.selected] : '(không trả lời)';
+
+  return `
+    <div class="review-item ${cls}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem;">
+        <strong>Câu ${i + 1}</strong>
+        <span style="background:rgba(99,102,241,0.15);color:#a5b4fc;padding:0.25rem 0.7rem;border-radius:20px;font-size:0.7rem;font-weight:700;">${q.category}</span>
+      </div>
+      <div class="review-q-text">${q.question}</div>
+      <div class="review-answers">
+        <div class="review-row">
+          <span class="review-label">Trạng thái:</span>
+          <span class="review-value ${cls}">${statusText}</span>
+        </div>
+        <div class="review-row">
+          <span class="review-label">Bạn chọn:</span>
+          <span class="review-value ${d.isCorrect ? 'correct' : 'wrong'}">${selectedText}</span>
+        </div>
+        ${!d.isCorrect ? `
+        <div class="review-row">
+          <span class="review-label">Đáp án đúng:</span>
+          <span class="review-value correct">${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}</span>
+        </div>
+        ` : ''}
+      </div>
+      ${q.explanation ? `<div class="review-exp">💡 <strong>Giải thích:</strong> ${q.explanation}</div>` : ''}
+    </div>
+  `;
+}
+
+function getExamHistory() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY)) || []; } catch { return []; }
+}
+
+function saveExamHistory(entry) {
+  const list = getExamHistory();
+  list.unshift({ ...entry, date: new Date().toISOString() });
+  if (list.length > 50) list.length = 50;
+  localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(list));
+}
+
+function getWrongList() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.WRONG)) || []; } catch { return []; }
+}
+
+function saveWrongQuestion(question, selected) {
+  try {
+    const list = getWrongList();
+    const id = question.id || `q-${Date.now()}`;
+    const exists = list.findIndex(q => q.id === id);
+    const entry = { ...question, id, selectedAnswer: selected, wrongAt: new Date().toISOString(), reviewCount: 1 };
+    if (exists >= 0) {
+      entry.reviewCount = (list[exists].reviewCount || 0) + 1;
+      list[exists] = entry;
+    } else {
+      list.unshift(entry);
+    }
+    if (list.length > 200) list.length = 200;
+    localStorage.setItem(STORAGE_KEYS.WRONG, JSON.stringify(list));
+  } catch (e) { console.error(e); }
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (state.phase !== 'exam') return;
+  if (e.key >= '1' && e.key <= '4') {
+    const idx = parseInt(e.key) - 1;
+    const q = state.questions[state.currentIndex];
+    if (q && idx < q.options.length) selectExamOption(idx);
+  }
+  if (e.key === 'ArrowRight') nextQuestion();
+  if (e.key === 'ArrowLeft') prevQuestion();
+});
+</script>
+</body>
+</html>

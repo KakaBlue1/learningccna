@@ -1,0 +1,454 @@
+{
+  "questions": [
+    {
+      "id": "q001",
+      "category": "OSI Model",
+      "difficulty": "easy",
+      "question": "Router hoạt động ở tầng nào của mô hình OSI?",
+      "options": ["Layer 1 (Physical)", "Layer 2 (Data Link)", "Layer 3 (Network)", "Layer 4 (Transport)"],
+      "answer": 2,
+      "explanation": "Router hoạt động ở Layer 3 (Network), định tuyến dựa trên địa chỉ IP."
+    },
+    {
+      "id": "q002",
+      "category": "OSI Model",
+      "difficulty": "easy",
+      "question": "Switch Layer 2 hoạt động ở tầng nào?",
+      "options": ["Layer 1", "Layer 2", "Layer 3", "Layer 4"],
+      "answer": 1,
+      "explanation": "Switch L2 hoạt động ở Layer 2 (Data Link), chuyển frame dựa trên MAC address."
+    },
+    {
+      "id": "q003",
+      "category": "OSI Model",
+      "difficulty": "medium",
+      "question": "Chức năng chính của tầng Presentation trong OSI là gì?",
+      "options": ["Chia segment", "Mã hóa và nén dữ liệu", "Định tuyến gói tin", "Kiểm tra lỗi truyền dẫn"],
+      "answer": 1,
+      "explanation": "Layer 6 (Presentation) xử lý mã hóa, nén và định dạng dữ liệu (JPEG, MPEG, SSL)."
+    },
+    {
+      "id": "q004",
+      "category": "OSI Model",
+      "difficulty": "medium",
+      "question": "Giao thức TCP và UDP hoạt động ở tầng nào?",
+      "options": ["Layer 2", "Layer 3", "Layer 4", "Layer 5"],
+      "answer": 2,
+      "explanation": "TCP/UDP thuộc Layer 4 (Transport), chịu trách nhiệm chia segment và quản lý kết nối."
+    },
+    {
+      "id": "q005",
+      "category": "OSI Model",
+      "difficulty": "hard",
+      "question": "Đơn vị dữ liệu (PDU) ở tầng Network được gọi là gì?",
+      "options": ["Frame", "Packet", "Segment", "Bits"],
+      "answer": 1,
+      "explanation": "PDU của Layer 3 là Packet. Layer 2 = Frame, Layer 4 = Segment, Layer 1 = Bits."
+    },
+    {
+      "id": "q006",
+      "category": "TCP/IP Model",
+      "difficulty": "medium",
+      "question": "Mô hình TCP/IP có bao nhiêu tầng?",
+      "options": ["3", "4", "5", "7"],
+      "answer": 1,
+      "explanation": "TCP/IP có 4 tầng: Application, Transport, Internet, Network Access."
+    },
+    {
+      "id": "q007",
+      "category": "Subnetting",
+      "difficulty": "medium",
+      "question": "Địa chỉ 192.168.1.0/26 có bao nhiêu host khả dụng?",
+      "options": ["62", "64", "30", "126"],
+      "answer": 0,
+      "explanation": "/26 → 6 bit host → 2^6 - 2 = 62 host khả dụng."
+    },
+    {
+      "id": "q008",
+      "category": "Subnetting",
+      "difficulty": "easy",
+      "question": "Subnet mask của /24 là gì?",
+      "options": ["255.255.0.0", "255.255.255.0", "255.255.255.128", "255.255.255.192"],
+      "answer": 1,
+      "explanation": "/24 = 24 bit 1 → 255.255.255.0"
+    },
+    {
+      "id": "q009",
+      "category": "Subnetting",
+      "difficulty": "hard",
+      "question": "Chia mạng 10.0.0.0/8 thành các subnet /24, có bao nhiêu subnet?",
+      "options": ["256", "512", "65536", "1024"],
+      "answer": 2,
+      "explanation": "/24 - /8 = 16 bit mượn → 2^16 = 65536 subnet."
+    },
+    {
+      "id": "q010",
+      "category": "VLAN",
+      "difficulty": "easy",
+      "question": "Dải VLAN normal range trên switch Cisco là gì?",
+      "options": ["1-1001", "1-4094", "1-1005", "2-1001"],
+      "answer": 2,
+      "explanation": "Normal range: VLAN 1-1005. Extended range: 1006-4094."
+    },
+    {
+      "id": "q011",
+      "category": "VLAN",
+      "difficulty": "medium",
+      "question": "VLAN nào được Cisco khuyến nghị dùng làm native VLAN trên trunk?",
+      "options": ["VLAN 1", "VLAN 99", "VLAN 100", "VLAN 1000"],
+      "answer": 1,
+      "explanation": "Cisco khuyến nghị đổi native VLAN khỏi VLAN 1 (mặc định) sang VLAN 99 hoặc 999 để tăng bảo mật."
+    },
+    {
+      "id": "q012",
+      "category": "VLAN",
+      "difficulty": "hard",
+      "question": "Chuẩn nào được sử dụng cho VLAN trunking?",
+      "options": ["802.1X", "802.1Q", "802.3", "802.11"],
+      "answer": 1,
+      "explanation": "802.1Q (dot1q) là chuẩn IEEE cho VLAN tagging trên trunk port."
+    },
+    {
+      "id": "q013",
+      "category": "VLAN",
+      "difficulty": "medium",
+      "question": "Lệnh nào gán cổng fa0/1 vào VLAN 10?",
+      "options": ["vlan 10 fa0/1", "switchport access vlan 10", "access vlan 10", "set vlan 10 port fa0/1"],
+      "answer": 1,
+      "explanation": "switchport access vlan 10 gán cổng vào VLAN 10 ở access mode."
+    },
+    {
+      "id": "q014",
+      "category": "Routing",
+      "difficulty": "easy",
+      "question": "Lệnh nào cấu hình default route trên router Cisco?",
+      "options": ["ip route 0.0.0.0 0.0.0.0 <next-hop>", "ip default-gateway <next-hop>", "route default <next-hop>", "ip route default <next-hop>"],
+      "answer": 0,
+      "explanation": "ip route 0.0.0.0 0.0.0.0 <next-hop> tạo default route."
+    },
+    {
+      "id": "q015",
+      "category": "Routing",
+      "difficulty": "medium",
+      "question": "Administrative Distance mặc định của OSPF là bao nhiêu?",
+      "options": ["90", "110", "120", "1"],
+      "answer": 1,
+      "explanation": "AD mặc định: Connected=0, Static=1, EIGRP=90, OSPF=110, RIP=120."
+    },
+    {
+      "id": "q016",
+      "category": "Routing",
+      "difficulty": "medium",
+      "question": "OSPF sử dụng thuật toán nào để tính đường đi ngắn nhất?",
+      "options": ["Bellman-Ford", "Dijkstra (SPF)", "DUAL", "Distance Vector"],
+      "answer": 1,
+      "explanation": "OSPF dùng thuật toán Dijkstra (Shortest Path First) để tính toán đường đi."
+    },
+    {
+      "id": "q017",
+      "category": "Routing",
+      "difficulty": "hard",
+      "question": "Area nào là backbone area bắt buộc trong OSPF?",
+      "options": ["Area 1", "Area 10", "Area 0", "Area 100"],
+      "answer": 2,
+      "explanation": "Area 0 là backbone area, tất cả area khác phải kết nối về Area 0."
+    },
+    {
+      "id": "q018",
+      "category": "ACL",
+      "difficulty": "easy",
+      "question": "Standard ACL được đánh số trong dải nào?",
+      "options": ["1-99", "100-199", "1000-1099", "200-299"],
+      "answer": 0,
+      "explanation": "Standard ACL: 1-99 và 1300-1999."
+    },
+    {
+      "id": "q019",
+      "category": "ACL",
+      "difficulty": "medium",
+      "question": "Cuối mỗi ACL Cisco luôn có gì?",
+      "options": ["permit any any", "deny any any ngầm định", "log all", "return"],
+      "answer": 1,
+      "explanation": "Cuối mỗi ACL luôn có 'deny any any' ngầm định — traffic không match sẽ bị chặn."
+    },
+    {
+      "id": "q020",
+      "category": "ACL",
+      "difficulty": "medium",
+      "question": "Standard ACL nên đặt ở đâu trong mạng?",
+      "options": ["Gần source", "Gần destination", "Trên router biên", "Không quan trọng"],
+      "answer": 1,
+      "explanation": "Standard ACL chỉ lọc source IP → đặt gần destination để tránh chặn nhầm traffic."
+    },
+    {
+      "id": "q021",
+      "category": "ACL",
+      "difficulty": "medium",
+      "question": "Extended ACL nên đặt ở đâu?",
+      "options": ["Gần source", "Gần destination", "Trên core switch", "Không quan trọng"],
+      "answer": 0,
+      "explanation": "Extended ACL lọc source + dest + port → đặt gần source để tiết kiệm băng thông."
+    },
+    {
+      "id": "q022",
+      "category": "ACL",
+      "difficulty": "hard",
+      "question": "Wildcard mask nào tương ứng với 192.168.1.0/24?",
+      "options": ["0.0.0.255", "255.255.255.0", "0.0.0.0", "255.255.255.255"],
+      "answer": 0,
+      "explanation": "Wildcard = 255.255.255.255 - subnet mask = 255.255.255.255 - 255.255.255.0 = 0.0.0.255."
+    },
+    {
+      "id": "q023",
+      "category": "NAT",
+      "difficulty": "easy",
+      "question": "NAT nào cho phép nhiều private IP dùng chung 1 public IP?",
+      "options": ["Static NAT", "Dynamic NAT", "PAT (NAT Overload)", "Không có loại nào"],
+      "answer": 2,
+      "explanation": "PAT (NAT Overload) cho nhiều private IP chia sẻ 1 public IP qua port khác nhau."
+    },
+    {
+      "id": "q024",
+      "category": "NAT",
+      "difficulty": "medium",
+      "question": "Lệnh nào kiểm tra bảng NAT trên router Cisco?",
+      "options": ["show nat table", "show ip nat translations", "show nat all", "display nat"],
+      "answer": 1,
+      "explanation": "show ip nat translations hiển thị bảng NAT đang hoạt động."
+    },
+    {
+      "id": "q025",
+      "category": "DHCP",
+      "difficulty": "easy",
+      "question": "DHCP sử dụng giao thức vận chuyển nào?",
+      "options": ["TCP", "UDP", "ICMP", "ARP"],
+      "answer": 1,
+      "explanation": "DHCP dùng UDP: port 67 (server), port 68 (client)."
+    },
+    {
+      "id": "q026",
+      "category": "DHCP",
+      "difficulty": "medium",
+      "question": "Quá trình DHCP DORA là viết tắt của gì?",
+      "options": ["Discover-Offer-Request-Ack", "Data-Offer-Reply-Ack", "Discover-Open-Reply-Accept", "Data-Open-Request-Answer"],
+      "answer": 0,
+      "explanation": "DORA: Discover → Offer → Request → Acknowledge."
+    },
+    {
+      "id": "q027",
+      "category": "DHCP",
+      "difficulty": "medium",
+      "question": "Lệnh nào cấu hình DHCP relay trên router Cisco?",
+      "options": ["ip dhcp relay", "ip helper-address <server-ip>", "dhcp forward <server-ip>", "ip dhcp forward"],
+      "answer": 1,
+      "explanation": "ip helper-address <server-ip> chuyển tiếp DHCP broadcast sang DHCP server ở subnet khác."
+    },
+    {
+      "id": "q028",
+      "category": "Ports & Protocols",
+      "difficulty": "easy",
+      "question": "Port mặc định của HTTP là gì?",
+      "options": ["21", "22", "80", "443"],
+      "answer": 2,
+      "explanation": "HTTP = 80, HTTPS = 443, FTP = 21, SSH = 22."
+    },
+    {
+      "id": "q029",
+      "category": "Ports & Protocols",
+      "difficulty": "easy",
+      "question": "Port mặc định của HTTPS là gì?",
+      "options": ["80", "443", "8080", "22"],
+      "answer": 1,
+      "explanation": "HTTPS = 443 (HTTP over SSL/TLS)."
+    },
+    {
+      "id": "q030",
+      "category": "Ports & Protocols",
+      "difficulty": "easy",
+      "question": "Port mặc định của SSH là gì?",
+      "options": ["21", "22", "23", "25"],
+      "answer": 1,
+      "explanation": "SSH = 22, Telnet = 23, FTP = 21, SMTP = 25."
+    },
+    {
+      "id": "q031",
+      "category": "Ports & Protocols",
+      "difficulty": "medium",
+      "question": "DNS sử dụng port nào?",
+      "options": ["53", "67", "80", "110"],
+      "answer": 0,
+      "explanation": "DNS = port 53 (UDP cho query, TCP cho zone transfer)."
+    },
+    {
+      "id": "q032",
+      "category": "Ports & Protocols",
+      "difficulty": "medium",
+      "question": "Port của SMTP, POP3, IMAP lần lượt là?",
+      "options": ["25, 110, 143", "110, 25, 143", "25, 143, 110", "143, 110, 25"],
+      "answer": 0,
+      "explanation": "SMTP = 25, POP3 = 110, IMAP = 143."
+    },
+    {
+      "id": "q033",
+      "category": "Ports & Protocols",
+      "difficulty": "hard",
+      "question": "Port của NTP, SNMP, Syslog lần lượt là?",
+      "options": ["123, 161, 514", "161, 123, 514", "514, 161, 123", "123, 514, 161"],
+      "answer": 0,
+      "explanation": "NTP = 123, SNMP = 161, Syslog = 514."
+    },
+    {
+      "id": "q034",
+      "category": "IPv6",
+      "difficulty": "medium",
+      "question": "Địa chỉ IPv6 có bao nhiêu bit?",
+      "options": ["32", "64", "128", "256"],
+      "answer": 2,
+      "explanation": "IPv6 là địa chỉ 128-bit, biểu diễn dạng hexadecimal."
+    },
+    {
+      "id": "q035",
+      "category": "IPv6",
+      "difficulty": "medium",
+      "question": "Địa chỉ IPv6 nào là link-local?",
+      "options": ["::1", "FE80::/10", "FF00::/8", "2000::/3"],
+      "answer": 1,
+      "explanation": "FE80::/10 là link-local. ::1 = loopback, FF00::/8 = multicast, 2000::/3 = global unicast."
+    },
+    {
+      "id": "q036",
+      "category": "IPv6",
+      "difficulty": "hard",
+      "question": "Địa chỉ IPv6 nào tương đương với 127.0.0.1 của IPv4?",
+      "options": ["::", "::1", "FE80::1", "FF02::1"],
+      "answer": 1,
+      "explanation": "::1 là IPv6 loopback. :: là unspecified address."
+    },
+    {
+      "id": "q037",
+      "category": "Security",
+      "difficulty": "medium",
+      "question": "Chế độ vi phạm mặc định của Port Security là gì?",
+      "options": ["Protect", "Restrict", "Shutdown", "Alert"],
+      "answer": 2,
+      "explanation": "Shutdown là mặc định — port vào err-disable khi vi phạm."
+    },
+    {
+      "id": "q038",
+      "category": "Security",
+      "difficulty": "medium",
+      "question": "Lệnh nào bật Port Security trên cổng fa0/1?",
+      "options": ["security enable", "switchport port-security", "port-security on", "port-security enable"],
+      "answer": 1,
+      "explanation": "switchport port-security bật tính năng Port Security."
+    },
+    {
+      "id": "q039",
+      "category": "Security",
+      "difficulty": "hard",
+      "question": "DHCP Snooping chống lại loại tấn công nào?",
+      "options": ["DoS", "Rogue DHCP", "ARP Spoofing", "MAC Flooding"],
+      "answer": 1,
+      "explanation": "DHCP Snooping chống Rogue DHCP Server. DAI chống ARP Spoofing. Port Security chống MAC Flooding."
+    },
+    {
+      "id": "q040",
+      "category": "Commands",
+      "difficulty": "easy",
+      "question": "Lệnh nào hiển thị bảng định tuyến?",
+      "options": ["show routes", "show ip route", "display route", "list routes"],
+      "answer": 1,
+      "explanation": "show ip route hiển thị bảng định tuyến trên router Cisco."
+    },
+    {
+      "id": "q041",
+      "category": "Commands",
+      "difficulty": "easy",
+      "question": "Lệnh nào hiển thị trạng thái interface?",
+      "options": ["show interfaces status", "show ip interface", "show status", "show interface brief"],
+      "answer": 0,
+      "explanation": "show interfaces status hiển thị tóm tắt trạng thái các interface (up/down, speed, VLAN)."
+    },
+    {
+      "id": "q042",
+      "category": "Commands",
+      "difficulty": "medium",
+      "question": "Lệnh nào lưu cấu hình vào NVRAM?",
+      "options": ["save", "write memory", "copy run start", "Cả B và C"],
+      "answer": 3,
+      "explanation": "Cả write memory và copy running-config startup-config đều lưu cấu hình."
+    },
+    {
+      "id": "q043",
+      "category": "Commands",
+      "difficulty": "medium",
+      "question": "Lệnh nào hiển thị MAC address table của switch?",
+      "options": ["show mac", "show mac-address-table", "show arp", "show cam"],
+      "answer": 1,
+      "explanation": "show mac-address-table hiển thị bảng MAC address (còn gọi show mac address-table)."
+    },
+    {
+      "id": "q044",
+      "category": "Commands",
+      "difficulty": "medium",
+      "question": "Lệnh nào hiển thị các neighbor OSPF?",
+      "options": ["show ospf", "show ip ospf neighbor", "show ospf neighbors", "show ospf adj"],
+      "answer": 1,
+      "explanation": "show ip ospf neighbor hiển thị các router láng giềng OSPF và trạng thái adjacency."
+    },
+    {
+      "id": "q045",
+      "category": "STP",
+      "difficulty": "medium",
+      "question": "Giao thức STP tiêu chuẩn là gì?",
+      "options": ["802.1Q", "802.1D", "802.1X", "802.3ad"],
+      "answer": 1,
+      "explanation": "802.1D là STP chuẩn. 802.1w = RSTP, 802.1s = MSTP."
+    },
+    {
+      "id": "q046",
+      "category": "STP",
+      "difficulty": "hard",
+      "question": "Thời gian hội tụ mặc định của STP (802.1D) là bao lâu?",
+      "options": ["30 giây", "50 giây", "15 giây", "5 giây"],
+      "answer": 1,
+      "explanation": "STP 802.1D mất ~50 giây để hội tụ (20 blocking + 15 listening + 15 learning)."
+    },
+    {
+      "id": "q047",
+      "category": "STP",
+      "difficulty": "medium",
+      "question": "Bridge ID trong STP bao gồm những gì?",
+      "options": ["MAC address", "Priority + MAC", "Chỉ priority", "IP + MAC"],
+      "answer": 1,
+      "explanation": "Bridge ID = Priority (2 byte) + MAC address (6 byte)."
+    },
+    {
+      "id": "q048",
+      "category": "Wireless",
+      "difficulty": "medium",
+      "question": "Chuẩn WiFi nào hoạt động ở băng tần 5GHz?",
+      "options": ["802.11b", "802.11g", "802.11a", "802.11n (chỉ 2.4GHz)"],
+      "answer": 2,
+      "explanation": "802.11a hoạt động ở 5GHz. 802.11b/g ở 2.4GHz. 802.11n/ac hỗ trợ cả hai."
+    },
+    {
+      "id": "q049",
+      "category": "Wireless",
+      "difficulty": "hard",
+      "question": "WPA3 sử dụng giao thức xác thực nào?",
+      "options": ["PSK", "SAE", "EAP", "WEP"],
+      "answer": 1,
+      "explanation": "WPA3 dùng SAE (Simultaneous Authentication of Equals) — chống brute-force tốt hơn."
+    },
+    {
+      "id": "q050",
+      "category": "Automation",
+      "difficulty": "medium",
+      "question": "REST API sử dụng phương thức HTTP nào để tạo tài nguyên mới?",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 1,
+      "explanation": "POST tạo mới. GET đọc. PUT cập nhật. DELETE xóa."
+    }
+  ]
+}
