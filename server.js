@@ -234,17 +234,16 @@ app.post('/api/chat', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
+app.get('/exam', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/exam.html'));
+});
 // ==========================================
 // START SERVER
 // ==========================================
-app.listen(PORT, () => {
+app.listen(PORT,'0.0.0.0', () => {
   console.log(`\n🚀 Server: http://localhost:${PORT}`);
   console.log(`📚 Ngân hàng tĩnh: ${STATIC_QUESTIONS.length} câu`);
   console.log(`🎲 Template generators: 5 triệu+ biến thể`);
   console.log(`🤖 AI: ${genAI ? '✅ Gemini Flash' : '⚠️  Chưa có API key'}`);
   console.log(`\n💡 Mở trình duyệt: http://localhost:${PORT}\n`);
-});
-app.get('/exam', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/exam.html'));
 });
